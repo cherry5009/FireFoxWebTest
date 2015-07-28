@@ -20,13 +20,13 @@ public class DeleteTest {
 	@Test
 	public void deleteFolder() {
 		ActionList objActionList = new ActionList(driver, "testFolder");
-		objActionList.delete();
+		objActionList.clickDelete();
 		Assert.assertEquals(true, objActionList.confirmDelete());
 	}
 	
 	public void deleteFile() {
 		ActionList objActionList = new ActionList(driver, "test.doc");
-		objActionList.delete();
+		objActionList.clickDelete();
 		Assert.assertEquals(true, objActionList.confirmDelete());
 	}
 	
@@ -34,7 +34,6 @@ public class DeleteTest {
 	public void beforeMethod() {
 		objNewFolderPage = new NewFolderPage(driver, "testFolder");
 		objNewFolderPage.newFolder();
-		objNewFolderPage.choosePersonalFile();
 		objNewFolderPage.createPersonalFile();
 		objNewFolderPage.confirmCreate("testFolder");
 	}
@@ -46,14 +45,12 @@ public class DeleteTest {
 	@BeforeTest
 	public void beforeTest() {
 		driver = new FirefoxDriver();
-		String baseUrl="http://115.29.169.34/auth/login";
-		driver.get(baseUrl);
-		driver.manage().window().maximize();
 		//login
 		LogInPage objLogInPage = new LogInPage(driver);
-		objLogInPage.setEmail("jiong09test@163.com");
-		objLogInPage.setPassword("jiong0321");
 		objLogInPage.clickLogIn();
+		Assert.assertEquals(true, objLogInPage.confirmClickLogIn());
+		objLogInPage.logIn();
+		Assert.assertEquals(true, objLogInPage.confirmLogIn());
 	}
 	
 	@AfterTest
